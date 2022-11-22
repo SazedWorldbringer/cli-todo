@@ -1,0 +1,20 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "todo": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Atharva Pardeshi (atharvaworks.vercel.app)",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.1.2",
+    "lowdb": "^5.0.5"
+  }
+}
