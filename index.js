@@ -72,25 +72,6 @@ if (commands.indexOf(args[2]) == -1) {
 }
 */
 
-// switch statement to call functions based on what command is passed
-switch (args[2]) {
-  case "help":
-    usage();
-    break;
-  case "new":
-    newTodo();
-    break;
-  case "get":
-    getTodos();
-    break;
-  case "complete":
-    break;
-  default:
-    errorLog("Error: Invalid command passed");
-    usage();
-    break;
-}
-
 // File path
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const file = join(__dirname, "db.json");
@@ -143,4 +124,23 @@ function getTodos() {
     const todoText = `${i++}. ${todo.title}`;
     console.log(todoText);
   });
+}
+
+// switch statement to call functions based on what command is passed
+switch (args[2]) {
+  case "help":
+    usage();
+    break;
+  case "new":
+    newTodo();
+    break;
+  case "get":
+    getTodos();
+    break;
+  case "complete":
+    break;
+  default:
+    errorLog("Error: Invalid command passed");
+    usage();
+    break;
 }
