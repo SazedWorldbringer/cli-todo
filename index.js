@@ -97,8 +97,14 @@ const file = join(__dirname, "db.json");
 const adapter = new JSONFile(file);
 const db = new Low(adapter);
 
+// Read data from JSON file, set db.data content
+await db.read();
+
 // Set some defaults
 db.data ||= { todos: [] };
+
+// write db.data content to db.json file
+await db.write();
 
 // Prompt user to input data
 function prompt(question) {
@@ -120,6 +126,12 @@ function prompt(question) {
 function newTodo() {
   const q = chalk.bgHex(blue)("Type in your todo\n");
   prompt(q).then((todo) => {
-    console.log(todo);
+    // make todo from prompt
+    db.data.todos.push({
+      title: todo,
+      complete: false,
+    });
+    // write todo to db.json file
+    db.write();
   });
 }
