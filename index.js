@@ -3,6 +3,13 @@
 import chalk from "chalk";
 const args = process.argv;
 
+import rl from "readline";
+import { Low } from "lowdb";
+import { JSONFile } from "lowdb/node";
+
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
 let red = "#FF2E00";
 let green = "#23CE6B";
 let blue = "#496DDB";
@@ -82,13 +89,12 @@ switch (args[2]) {
     break;
 }
 
-/* const rl = require("readline");
+// File path
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const file = join(__dirname, "db.json");
 
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
+const adapter = new JSONFile(file);
+const db = new Low(adapter);
 
-const adapter = new FileSync("db.json");
-const db = low(adapter);
-
-// Set some defaults (required if your JSON file is empty)
-db.defaults({ todos: [] }).write(); */
+// Set some defaults
+db.data ||= { todos: [] };
