@@ -142,7 +142,7 @@ function newTodo() {
 function getTodos() {
   let i = 1;
   todos.forEach((todo) => {
-    let isComplete = todo.complete == true ? "✔️" : "❌";
+    let isComplete = todo.complete == true ? "✅" : "❎";
     const todoText = `${i++}. ${todo.title}  ${isComplete}`;
     console.log(todoText);
   });
