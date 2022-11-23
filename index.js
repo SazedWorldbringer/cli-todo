@@ -60,7 +60,7 @@ const errorLog = (error) => {
 };
 
 // make sure length of the arguments array is exactly three
-if (args.length > 3) {
+if (args.length > 3 && args[2] != "complete") {
   errorLog("Error: only one argument can be accepted");
   usage();
 }
@@ -104,7 +104,7 @@ function prompt(question) {
 }
 
 // Handle `new` command
-function newTodo() {
+const newTodo = () => {
   const q = chalk.bgHex(blue)("Type in your todo\n");
   prompt(q).then((todo) => {
     // make todo from prompt
@@ -115,16 +115,16 @@ function newTodo() {
     // write todo to db.json file
     db.write();
   });
-}
+};
 
 // Handle `get` command
-function getTodos() {
+const getTodos = () => {
   let i = 1;
   todos.forEach((todo) => {
     const todoText = `${i++}. ${todo.title}`;
     console.log(todoText);
   });
-}
+};
 
 // switch statement to call functions based on what command is passed
 switch (args[2]) {
