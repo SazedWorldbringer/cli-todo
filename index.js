@@ -60,6 +60,9 @@ const db = new Low(adapter);
 // Read data from JSON file, set db.data content
 await db.read();
 
+// set default data
+db.data ||= { todos: [] };
+
 const { todos } = db.data;
 
 // write db.data content to db.json file
