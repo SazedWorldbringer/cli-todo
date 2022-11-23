@@ -78,6 +78,7 @@ switch (args[2]) {
     usage();
     break;
   case "new":
+    newTodo();
     break;
   case "get":
     break;
@@ -100,7 +101,7 @@ const db = new Low(adapter);
 db.data ||= { todos: [] };
 
 // Prompt user to input data
-const prompt = (question) => {
+function prompt(question) {
   const r = rl.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -113,4 +114,12 @@ const prompt = (question) => {
       resolve(answer);
     });
   });
-};
+}
+
+// Handle `new` command
+function newTodo() {
+  const q = chalk.hex(blue)("Type in your todo\n");
+  prompt(q).then((todo) => {
+    console.log(todo);
+  });
+}
