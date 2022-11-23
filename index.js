@@ -81,6 +81,7 @@ switch (args[2]) {
     newTodo();
     break;
   case "get":
+    getTodos();
     break;
   case "complete":
     break;
@@ -132,5 +133,14 @@ function newTodo() {
     });
     // write todo to db.json file
     db.write();
+  });
+}
+
+// Handle `get` command
+function getTodos() {
+  let i = 1;
+  todos.forEach((todo) => {
+    const todoText = `${i++}. ${todo.title}`;
+    console.log(todoText);
   });
 }
