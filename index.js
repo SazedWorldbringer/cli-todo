@@ -100,8 +100,7 @@ const db = new Low(adapter);
 // Read data from JSON file, set db.data content
 await db.read();
 
-// Set some defaults
-db.data ||= { todos: [] };
+const { todos } = db.data;
 
 // write db.data content to db.json file
 await db.write();
@@ -127,7 +126,7 @@ function newTodo() {
   const q = chalk.bgHex(blue)("Type in your todo\n");
   prompt(q).then((todo) => {
     // make todo from prompt
-    db.data.todos.push({
+    todos.push({
       title: todo,
       complete: false,
     });
