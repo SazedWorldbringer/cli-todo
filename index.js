@@ -118,7 +118,7 @@ function prompt(question) {
 
 // Handle `new` command
 function newTodo() {
-  const q = chalk.hex(blue)("Type in your todo\n");
+  const q = chalk.bgHex(blue)("Type in your todo\n");
   prompt(q).then((todo) => {
     console.log(todo);
   });
