@@ -14,8 +14,6 @@ let red = "#FF2E00";
 let green = "#23CE6B";
 let blue = "#496DDB";
 
-const commands = ["new", "get", "complete", "help"];
-
 // help guide
 const usage = () => {
   const usageText = `
@@ -52,26 +50,6 @@ ${
   console.log(usageText);
 };
 
-// log errors to the console
-const errorLog = (error) => {
-  const eLog = chalk.bgHex(red)(` ${error} `);
-  console.log(`
-  ${eLog}`);
-};
-
-// make sure length of the arguments array is exactly three
-if (args.length > 3 && args[2] != "complete") {
-  errorLog("Error: only one argument can be accepted");
-  usage();
-}
-
-/* // check if passed argument is a valid command
-if (commands.indexOf(args[2]) == -1) {
-  errorLog("Error: Invalid command passed");
-  usage();
-}
-*/
-
 // File path
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const file = join(__dirname, "db.json");
@@ -86,6 +64,46 @@ const { todos } = db.data;
 
 // write db.data content to db.json file
 await db.write();
+
+// switch statement to call functions based on what command is passed
+switch (args[2]) {
+  case "help":
+    usage();
+    break;
+  case "new":
+    newTodo();
+    break;
+  case "get":
+    getTodos();
+    break;
+  case "complete":
+    completeTodo();
+    break;
+  default:
+    errorLog("Error: Invalid command passed");
+    usage();
+    break;
+}
+
+// log errors to the console
+function errorLog(error) {
+  const eLog = chalk.bgHex(red)(` ${error} `);
+  console.log(`
+  ${eLog}`);
+}
+
+// make sure length of the arguments array is exactly three
+if (args.length > 3 && args[2] != "complete") {
+  errorLog("Error: only one argument can be accepted");
+  usage();
+}
+
+/* // check if passed argument is a valid command
+if (commands.indexOf(args[2]) == -1) {
+  errorLog("Error: Invalid command passed");
+  usage();
+}
+*/
 
 // Prompt user to input data
 function prompt(question) {
@@ -104,7 +122,7 @@ function prompt(question) {
 }
 
 // Handle `new` command
-const newTodo = () => {
+function newTodo() {
   const q = chalk.bgHex(blue)("Type in your todo\n");
   prompt(q).then((todo) => {
     // make todo from prompt
@@ -115,32 +133,40 @@ const newTodo = () => {
     // write todo to db.json file
     db.write();
   });
-};
+}
 
 // Handle `get` command
-const getTodos = () => {
+function getTodos() {
   let i = 1;
   todos.forEach((todo) => {
-    const todoText = `${i++}. ${todo.title}`;
+    let isComplete = todo.complete == true ? "✔️" : "❌";
+    const todoText = `${i++}. ${todo.title}  ${isComplete}`;
     console.log(todoText);
   });
-};
+}
 
-// switch statement to call functions based on what command is passed
-switch (args[2]) {
-  case "help":
-    usage();
-    break;
-  case "new":
-    newTodo();
-    break;
-  case "get":
-    getTodos();
-    break;
-  case "complete":
-    break;
-  default:
-    errorLog("Error: Invalid command passed");
-    usage();
-    break;
+// Handle `complete` command
+function completeTodo() {
+  // check argument length
+  if (args.length != 4) {
+    errorLog("Error: Invalid number of arguments passed");
+  }
+
+  let n = Number(args[3]);
+
+  // check if the value is a number
+  if (isNaN(n)) {
+    errorLog("Error: Provide a valid number for the complete command");
+    return;
+  }
+
+  let todosLength = todos.length;
+  if (n > todosLength) {
+    errorLog("Error: Invalid number passed for complete command");
+    return;
+  }
+
+  // update completed status for the todo item
+  todos[n - 1].complete = true;
+  db.write();
 }
