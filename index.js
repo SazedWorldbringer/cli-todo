@@ -25,26 +25,22 @@ ${chalk.hex(red)("    todo") + chalk.hex(green)(" [command]")}
 
   Available commands:
     
-${
-  chalk.hex(green)("     new") +
-  "       -   " +
-  chalk.hex(blue)("create a todo")
-}
-${
-  chalk.hex(green)("     get") +
-  "       -   " +
-  chalk.hex(blue)("retrieve your todos")
-}
-${
-  chalk.hex(green)("     complete") +
-  "  -   " +
-  chalk.hex(blue)("mark a todo as complete")
-}
-${
-  chalk.hex(green)("     help") +
-  "      -   " +
-  chalk.hex(blue)("print this message")
-}
+${chalk.hex(green)("     new") +
+    "       -   " +
+    chalk.hex(blue)("create a todo")
+    }
+${chalk.hex(green)("     get") +
+    "       -   " +
+    chalk.hex(blue)("retrieve your todos")
+    }
+${chalk.hex(green)("     complete") +
+    "  -   " +
+    chalk.hex(blue)("mark a todo as complete")
+    }
+${chalk.hex(green)("     help") +
+    "      -   " +
+    chalk.hex(blue)("print this message")
+    }
 `;
 
   console.log(usageText);
