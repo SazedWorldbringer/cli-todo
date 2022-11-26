@@ -1,6 +1,6 @@
 # Todo
 
-[!todo demo/preview]('./todo.gif')
+[!todo demo/preview](./todo.gif)
 
 A basic command line todo list app
 
